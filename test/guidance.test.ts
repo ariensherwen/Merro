@@ -47,7 +47,8 @@ test("implement Tasks embed scoped guidance while review handoffs rely on Pi gui
       assert.match(task, /Do not modify files/);
       assert.match(task, /Base commit: b{40}/);
     } else {
-      for (const text of ["Existing Project guidance", "Repository convention", "Use separate delivery; run CI.", "Kinetix convention.", "Implementer convention."]) assert.ok(task.includes(text), text);
+      for (const text of ["Existing Project guidance", "Use separate delivery; run CI.", "Kinetix convention.", "Implementer convention."]) assert.ok(task.includes(text), text);
+      assert.ok(!task.includes("Repository convention."));
       assert.ok(!task.includes("Reviewer convention."));
       assert.ok(!task.includes("Plugins convention."));
       assert.match(task, /current user instruction and approved ChangeSet requirements, Project Markdown, workspace Markdown, Merro defaults/);
