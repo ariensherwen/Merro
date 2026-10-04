@@ -119,7 +119,6 @@ export function renderTaskFile(input: TaskFileInput): string {
           ...(dependency.checkoutPath ? [`Read-only checkout: ${dependency.checkoutPath}`] : []),
         ].join("\n")).join("\n\n")),
       section("Implementation and CI summary", input.implementation ? implementationSummary(input.implementation) : "Implementation summary unavailable."),
-      input.latestReview ? section("Actionable prior findings", input.latestReview) : "",
       section("Task instructions", numbered(roleInstructions)),
     ].filter(Boolean);
   } else {
@@ -131,9 +130,6 @@ export function renderTaskFile(input: TaskFileInput): string {
       input.registeredProjects?.length ? section("Registered Projects", input.registeredProjects.join(", ")) : "",
       section("Project guidance", input.projectGuidance),
       section("Markdown guidance", renderMarkdownGuidance(input.markdownGuidance ?? [])),
-      input.repositoryInstructions.length === 0
-        ? ""
-        : section("Repository instructions", input.repositoryInstructions.map(({ path, text }) => `### ${path}\n\n${text}`).join("\n\n")),
       input.dependencies.length === 0
         ? ""
         : section("Direct dependency context", input.dependencies.map((dependency) => [
